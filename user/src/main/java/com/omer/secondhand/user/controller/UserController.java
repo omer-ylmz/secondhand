@@ -1,0 +1,53 @@
+package com.omer.secondhand.user.controller;
+
+import com.omer.secondhand.user.dto.CreateUserRequest;
+import com.omer.secondhand.user.dto.UpdateUserRequest;
+import com.omer.secondhand.user.dto.UserDTO;
+import com.omer.secondhand.user.model.User;
+import com.omer.secondhand.user.service.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/v1/user")
+public class UserController {
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));  //201
+    }
+
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody CreateUserRequest userRequest){
+        return ResponseEntity.ok(userService.createUser(userRequest));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody UpdateUserRequest updateUserRequest){
+        return ResponseEntity.ok(userService.updateUser(updateUserRequest));
+    }
+
+    @PatchMapping("/{id}")  //userı silmek değil deactive etmek için kullanıyoruz
+    public ResponseEntity<Void> deactiveUser(@PathVariable("id") Long id){
+        userService.deactiveUser(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")  //userı silmek değil deactivate etmek için kullanıyoruz
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id){
+        userService.deleteUser(id);
+        return ResponseEntity.ok().build();
+    }
+ }
