@@ -30,24 +30,24 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody CreateUserRequest userRequest){
+    public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserRequest userRequest){
         return ResponseEntity.ok(userService.createUser(userRequest));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody UpdateUserRequest updateUserRequest){
-        return ResponseEntity.ok(userService.updateUser(updateUserRequest));
+    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Long id,@RequestBody UpdateUserRequest updateUserRequest){
+        return ResponseEntity.ok(userService.updateUser(id, updateUserRequest));
     }
 
-    @PatchMapping("/{id}")  //userı silmek değil deactive etmek için kullanıyoruz
-    public ResponseEntity<Void> deactiveUser(@PathVariable("id") Long id){
-        userService.deactiveUser(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/{id}")  //userı silmek değil deactivate etmek için kullanıyoruz
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id){
-        userService.deleteUser(id);
-        return ResponseEntity.ok().build();
-    }
+//    @PatchMapping("/{id}")  //userı silmek değil deactive etmek için kullanıyoruz
+//    public ResponseEntity<Void> deactiveUser(@PathVariable("id") Long id){
+//        userService.deactiveUser(id);
+//        return ResponseEntity.ok().build();
+//    }
+//
+//    @DeleteMapping("/{id}")  //userı silmek değil deactivate etmek için kullanıyoruz
+//    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id){
+//        userService.deleteUser(id);
+//        return ResponseEntity.ok().build();
+//    }
  }

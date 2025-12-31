@@ -9,11 +9,10 @@ import jakarta.persistence.Id
 data class User(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long? = null,
     val mail: String,
     val firstName: String,
     val lastName: String,
     val middleName: String,
-    val postCode: String
 
 ) {}
