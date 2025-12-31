@@ -26,8 +26,8 @@ public class UserService {
         return userRepository.findAll().stream().map(userDtoConverter::convert).collect(Collectors.toList());
     }
 
-    public UserDTO getUserById(Long id) {
-        User user = findById(id);
+    public UserDTO getUserById(String mail) {
+        User user = findByMail(mail);
         return userDtoConverter.convert(user);
     }
 
@@ -40,8 +40,8 @@ public class UserService {
         return userDtoConverter.convert(userRepository.save(user));
     }
 
-    public UserDTO updateUser(Long id, UpdateUserRequest updateUserRequest) {
-        User user = findById(id);
+    public UserDTO updateUser(String mail, UpdateUserRequest updateUserRequest) {
+        User user = findByMail(mail);
         User updatedUser = new User(user.getId(),
                 user.getMail(),
                 updateUserRequest.getFirstName(),
@@ -50,8 +50,8 @@ public class UserService {
         return userDtoConverter.convert(userRepository.save(updatedUser));
     }
 
-    private User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User couldn't be found by following id: " + id));
+    private User findByMail(String mail) {
+        return userRepository.findByMail(mail).orElseThrow(() -> new UserNotFoundException("User couldn't be found by following id: " + mail));
     }
 
 

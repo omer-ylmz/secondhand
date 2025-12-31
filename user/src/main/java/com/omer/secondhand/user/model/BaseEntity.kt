@@ -1,10 +1,16 @@
-package com.omer.secondhand.user.model;
+package com.omer.secondhand.user.model
 
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.MappedSuperclass
 import java.time.LocalDateTime
 
-
-data class BaseEntity(
-    private val createdDate: LocalDateTime? = null,
-    private val updatedDate: LocalDateTime? = null
-) {}
-
+@MappedSuperclass
+abstract class BaseEntity(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,
+    val createdDate: LocalDateTime = LocalDateTime.now(),
+    val updatedDate: LocalDateTime = LocalDateTime.now()
+)

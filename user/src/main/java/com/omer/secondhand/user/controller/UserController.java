@@ -24,9 +24,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(userService.getUserById(id));  //201
+    @GetMapping("/{mail}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable("mail") String mail) {
+        return ResponseEntity.ok(userService.getUserById(mail));  //201
     }
 
     @PostMapping
@@ -34,9 +34,9 @@ public class UserController {
         return ResponseEntity.ok(userService.createUser(userRequest));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") Long id,@RequestBody UpdateUserRequest updateUserRequest){
-        return ResponseEntity.ok(userService.updateUser(id, updateUserRequest));
+    @PutMapping("/{mail}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable("mail") String mail,@RequestBody UpdateUserRequest updateUserRequest){
+        return ResponseEntity.ok(userService.updateUser(mail, updateUserRequest));
     }
 
 //    @PatchMapping("/{id}")  //userı silmek değil deactive etmek için kullanıyoruz
