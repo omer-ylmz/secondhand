@@ -1,9 +1,6 @@
 package com.omer.secondhand.user.controller;
 
-import com.omer.secondhand.user.dto.CreateUserRequest;
-import com.omer.secondhand.user.dto.UpdateUserRequest;
-import com.omer.secondhand.user.dto.UserDTO;
-import com.omer.secondhand.user.model.User;
+import com.omer.secondhand.user.dto.*;
 import com.omer.secondhand.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +32,7 @@ public class UserController {
     }
 
     @PutMapping("/{mail}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable("mail") String mail,@RequestBody UpdateUserRequest updateUserRequest){
+    public ResponseEntity<UserDTO> updateUser(@PathVariable("mail") String mail, @RequestBody UpdateUserRequest updateUserRequest){
         return ResponseEntity.ok(userService.updateUser(mail, updateUserRequest));
     }
 

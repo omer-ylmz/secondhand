@@ -1,53 +1,42 @@
 package com.omer.secondhand.user.service;
 
-import com.omer.secondhand.user.dto.CreateUserRequest;
-import com.omer.secondhand.user.dto.UpdateUserRequest;
-import com.omer.secondhand.user.dto.UserDTO;
-import com.omer.secondhand.user.dto.UserDtoConverter;
+import com.omer.secondhand.user.dto.*;
 import com.omer.secondhand.user.exception.UserNotFoundException;
+import com.omer.secondhand.user.mapper.UserMapper;
 import com.omer.secondhand.user.model.User;
 import com.omer.secondhand.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final UserDtoConverter userDtoConverter;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, UserDtoConverter userDtoConverter) {
-        this.userRepository = userRepository;
-        this.userDtoConverter = userDtoConverter;
-    }
 
     public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream().map(userDtoConverter::convert).collect(Collectors.toList());
+        return userRepository.findAll().stream().map(userMapper::convertUserToUserDTO).collect(Collectors.toList());
     }
 
     public UserDTO getUserById(String mail) {
         User user = findByMail(mail);
-        return userDtoConverter.convert(user);
+        return userMapper.convertUserToUserDTO(user);
     }
 
     public UserDTO createUser(CreateUserRequest userRequest) {
-        User user = new User(null,
-                userRequest.getMail(),
-                userRequest.getFirstName(),
-                userRequest.getLastName(),
-                userRequest.getMiddleName());
-        return userDtoConverter.convert(userRepository.save(user));
+        User user = userMapper.createUserRequestToUser(userRequest);
+        return userMapper.convertUserToUserDTO(userRepository.save(user));
     }
 
     public UserDTO updateUser(String mail, UpdateUserRequest updateUserRequest) {
         User user = findByMail(mail);
-        User updatedUser = new User(user.getId(),
-                user.getMail(),
-                updateUserRequest.getFirstName(),
-                updateUserRequest.getLastName(),
-                updateUserRequest.getMiddleName());
-        return userDtoConverter.convert(userRepository.save(updatedUser));
+        user = userMapper.updateUserRequestToUser(updateUserRequest, user);
+        return userMapper.convertUserToUserDTO(userRepository.save(user));
     }
 
     private User findByMail(String mail) {

@@ -1,6 +1,6 @@
 package com.omer.secondhand.user.dto
 
-data class CreateUserRequest(
+data class CreateUserRequestkt(
     val mail: String,
     val firstName: String,
     val lastName: String,

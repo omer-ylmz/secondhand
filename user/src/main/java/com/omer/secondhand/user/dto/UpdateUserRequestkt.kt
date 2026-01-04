@@ -1,9 +1,9 @@
 package com.omer.secondhand.user.dto
 
-data class UserDTO(
-    val mail: String,
+data class UpdateUserRequestkt (
     val firstName: String,
     val lastName: String,
     val middleName: String,
-) {
+){
+
 }

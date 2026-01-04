@@ -3,8 +3,7 @@ package com.omer.secondhand.user.model
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "users")
-data class User(
+data class Userkt(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

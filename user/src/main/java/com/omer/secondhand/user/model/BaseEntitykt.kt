@@ -7,7 +7,7 @@ import jakarta.persistence.MappedSuperclass
 import java.time.LocalDateTime
 
 @MappedSuperclass
-abstract class BaseEntity(
+abstract class BaseEntitykt(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
