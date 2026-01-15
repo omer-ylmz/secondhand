@@ -9,12 +9,15 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
     @Mapping(target = "updatedDate", ignore = true)
     @Mapping(target = "deletedDate", ignore = true)
+    @Mapping(target = "isActive", ignore = true)
     User createUserRequestToUser(CreateUserRequest createUserRequest);
 
     @Mapping(target = "id", ignore = true)
@@ -22,7 +25,10 @@ public interface UserMapper {
     @Mapping(target = "updatedDate", ignore = true)
     @Mapping(target = "deletedDate", ignore = true)
     @Mapping(target = "mail", ignore = true)
+    @Mapping(target = "isActive", ignore = true)
     User updateUserRequestToUser(UpdateUserRequest updateUserRequest,  @MappingTarget User user);
 
     UserDTO convertUserToUserDTO(User user);
+
+    List<UserDTO>  convertUserListToUserDTOList(List<User> userList);
 }
