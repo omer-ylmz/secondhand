@@ -10,11 +10,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class TestSupport {
-    private static Long userId = 100L;
+    public static Long userId = 100L;
 
-
-    public List<User> generateUsers(){
-        return IntStream.range(0,5).mapToObj(i ->
+    public List<User> generateUsers() {
+        return IntStream.range(0, 5).mapToObj(i ->
                 new User(
                         i + "@yilmaz.net",
                         "firstName" + i,
@@ -24,13 +23,13 @@ public class TestSupport {
         ).collect(Collectors.toList());
     }
 
-    public List<UserDTO> generateUserDTOList(List<User> userList){
+    public List<UserDTO> generateUserDTOList(List<User> userList) {
         return userList.stream().map(this::generateUserDTOList).collect(Collectors.toList());
     }
 
-    public User generateUser(String mail){
+    public User generateUser(String mail) {
         return new User(
-                userId + "@yilmaz.net",
+                mail,
                 "firstName" + userId,
                 "lastName" + userId,
                 "",
@@ -48,7 +47,7 @@ public class TestSupport {
         );
     }
 
-    public UserDTO generateUserDTO(String mail){
+    public UserDTO generateUserDTO(String mail) {
         return new UserDTO(
                 userId,
                 mail,

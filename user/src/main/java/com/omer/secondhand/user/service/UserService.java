@@ -32,7 +32,7 @@ public class UserService {
 
     public UserDTO createUser(CreateUserRequest userRequest) {
         User user = userMapper.createUserRequestToUser(userRequest);
-        user.setIsActive(true);
+        user.setIsActive(false);
         return userMapper.convertUserToUserDTO(userRepository.save(user));
     }
 
@@ -55,16 +55,11 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        if (doesUserExists(id)) {
-            userRepository.deleteById(id);
-        } else {
-            throw new UserNotFoundException("User couldn't be found by following id: " + id);
-        }
+        findById(id);
+
+        userRepository.deleteById(id);
     }
 
-    private boolean doesUserExists(Long id) {
-        return userRepository.existsById(id);
-    }
 
     private void changeActiveUser(Long id, boolean isActive) {
         User user = findById(id);

@@ -50,3 +50,11 @@ tasks.named('test') {
 kotlin {
     jvmToolchain(17)
 }
+
+tasks.named('bootJar') {
+    enabled = false
+}
+
+tasks.named('jar') {
+    enabled = true
+}
