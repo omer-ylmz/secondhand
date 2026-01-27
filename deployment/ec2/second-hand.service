@@ -1,0 +1,15 @@
+[Unit]
+Description=Secondhand Springboot Application
+
+[Service]
+SuccessExitStatus=143
+User=root
+
+ExecStart=/opt/yilmaz/second-hand/second-hand.sh
+ExecStop=/bin/kill -13 $MAINPID
+TimeoutSec=10
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

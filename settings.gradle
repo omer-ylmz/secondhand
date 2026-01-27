@@ -8,3 +8,4 @@ plugins {
 }
 rootProject.name = 'secondhand'
 include 'user'
+include 'secondhand-configuration'
